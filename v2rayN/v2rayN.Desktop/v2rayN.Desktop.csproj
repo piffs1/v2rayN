@@ -34,6 +34,7 @@
 	<ItemGroup>
 		<ProjectCapability Include="Avalonia" />
 		<AvaloniaResource Include="Assets\**" />
+		<AvaloniaResource Include="v2rayN.png" />
 		<ProjectReference Include="..\GlobalHotKeys\src\GlobalHotKeys\GlobalHotKeys.csproj" />
 		<ProjectReference Include="..\ServiceLib\ServiceLib.csproj" />
 	</ItemGroup>
@@ -45,9 +46,6 @@
 		<Compile Update="Views\FullConfigTemplateWindow.axaml.cs">
 		  <DependentUpon>FullConfigTemplateWindow.axaml</DependentUpon>
 		</Compile>
-		<None Update="v2rayN.png">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
 		<None Update="v2rayN.icns">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>

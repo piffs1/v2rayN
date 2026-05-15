@@ -6,146 +6,611 @@
     xmlns:dialogHost="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:resx="clr-namespace:ServiceLib.Resx;assembly=ServiceLib"
-    xmlns:view="using:v2rayN.Desktop.Views"
     xmlns:vms="clr-namespace:ServiceLib.ViewModels;assembly=ServiceLib"
     Title="v2rayN"
-    Width="1200"
-    Height="800"
-    MinWidth="600"
+    Width="1480"
+    Height="920"
+    MinWidth="1180"
+    MinHeight="760"
     x:DataType="vms:MainWindowViewModel"
+    Background="#0A1118"
     Icon="/Assets/NotifyIcon1.ico"
     ShowInTaskbar="True"
+    TransparencyLevelHint="Mica"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
+    <Window.Resources>
+        <SolidColorBrush x:Key="ShellBackgroundBrush" Color="#0A1118" />
+        <SolidColorBrush x:Key="SidebarBackgroundBrush" Color="#0D151E" />
+        <SolidColorBrush x:Key="PanelBackgroundBrush" Color="#131D28" />
+        <SolidColorBrush x:Key="PanelBackgroundAltBrush" Color="#16212D" />
+        <SolidColorBrush x:Key="PanelBorderBrush" Color="#1B2938" />
+        <SolidColorBrush x:Key="TextPrimaryBrush" Color="#EFF4FA" />
+        <SolidColorBrush x:Key="TextSecondaryBrush" Color="#92A3B7" />
+        <SolidColorBrush x:Key="TextMutedBrush" Color="#6E7F94" />
+        <SolidColorBrush x:Key="AccentBrush" Color="#2E68D2" />
+        <SolidColorBrush x:Key="AccentHoverBrush" Color="#3D7AEB" />
+        <SolidColorBrush x:Key="SuccessBrush" Color="#57D66E" />
+    </Window.Resources>
+    <Window.Styles>
+        <Style Selector="Border.WindowPanel">
+            <Setter Property="Background" Value="{StaticResource PanelBackgroundBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource PanelBorderBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="18" />
+        </Style>
+
+        <Style Selector="TextBlock.SidebarBrand">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+        </Style>
+
+        <Style Selector="TextBlock.PageTitle">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+        </Style>
+
+        <Style Selector="TextBlock.CardTitle">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+        </Style>
+
+        <Style Selector="TextBlock.LabelText">
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}" />
+        </Style>
+
+        <Style Selector="TextBlock.ValueText">
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+        </Style>
+
+        <Style Selector="TextBlock.SidebarNavText">
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+        </Style>
+
+        <Style Selector="TextBlock.SidebarIcon">
+            <Setter Property="Width" Value="18" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+
+        <Style Selector="Button.NavButton">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="CornerRadius" Value="12" />
+            <Setter Property="Padding" Value="14,12" />
+        </Style>
+
+        <Style Selector="Button.NavButton:pointerover">
+            <Setter Property="Background" Value="#162333" />
+        </Style>
+
+        <Style Selector="Button.NavButton.active">
+            <Setter Property="Background" Value="#22467C" />
+            <Setter Property="BorderBrush" Value="#2E5E9E" />
+            <Setter Property="BorderThickness" Value="1" />
+        </Style>
+
+        <Style Selector="Button.ActionPrimary">
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Padding" Value="18,0" />
+            <Setter Property="Background" Value="{StaticResource AccentBrush}" />
+            <Setter Property="BorderBrush" Value="#427FE5" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+
+        <Style Selector="Button.ActionPrimary:pointerover">
+            <Setter Property="Background" Value="{StaticResource AccentHoverBrush}" />
+        </Style>
+
+        <Style Selector="Button.ActionGhost">
+            <Setter Property="MinWidth" Value="40" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Background" Value="#1C2734" />
+            <Setter Property="BorderBrush" Value="#253548" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+        </Style>
+
+        <Style Selector="Button.ActionGhost:pointerover">
+            <Setter Property="Background" Value="#223243" />
+        </Style>
+    </Window.Styles>
+
     <dialogHost:DialogHost
-        Background="Gray"
+        Background="{StaticResource ShellBackgroundBrush}"
         CloseOnClickAway="True"
         DisableOpeningAnimation="True">
-        <DockPanel>
-            <DockPanel Margin="{StaticResource Margin8}" DockPanel.Dock="Top">
-                <ContentControl x:Name="conTheme" DockPanel.Dock="Right" />
-                <Menu Margin="{StaticResource Margin4}">
-                    <MenuItem Header="{x:Static resx:ResUI.menuServers}">
-                        <MenuItem
-                            x:Name="menuAddServerViaClipboard"
-                            Header="{x:Static resx:ResUI.menuAddServerViaClipboard}"
-                            InputGesture="Ctrl+V" />
-                        <MenuItem
-                            x:Name="menuAddServerViaScan"
-                            Header="{x:Static resx:ResUI.menuAddServerViaScan}"
-                            InputGesture="Ctrl+S" />
-                        <MenuItem x:Name="menuAddServerViaImage" Header="{x:Static resx:ResUI.menuAddServerViaImage}" />
-                        <MenuItem x:Name="menuAddCustomServer" Header="{x:Static resx:ResUI.menuAddCustomServer}" />
-                        <MenuItem x:Name="menuAddPolicyGroupServer" Header="{x:Static resx:ResUI.menuAddPolicyGroupServer}" />
-                        <MenuItem x:Name="menuAddProxyChainServer" Header="{x:Static resx:ResUI.menuAddProxyChainServer}" />
-                        <Separator />
-                        <MenuItem x:Name="menuAddVmessServer" Header="{x:Static resx:ResUI.menuAddVmessServer}" />
-                        <MenuItem x:Name="menuAddVlessServer" Header="{x:Static resx:ResUI.menuAddVlessServer}" />
-                        <MenuItem x:Name="menuAddShadowsocksServer" Header="{x:Static resx:ResUI.menuAddShadowsocksServer}" />
-                        <MenuItem x:Name="menuAddTrojanServer" Header="{x:Static resx:ResUI.menuAddTrojanServer}" />
-                        <MenuItem x:Name="menuAddHysteria2Server" Header="{x:Static resx:ResUI.menuAddHysteria2Server}" />
-                        <MenuItem x:Name="menuAddWireguardServer" Header="{x:Static resx:ResUI.menuAddWireguardServer}" />
-                        <MenuItem x:Name="menuAddSocksServer" Header="{x:Static resx:ResUI.menuAddSocksServer}" />
-                        <MenuItem x:Name="menuAddHttpServer" Header="{x:Static resx:ResUI.menuAddHttpServer}" />
-                        <Separator />
-                        <MenuItem x:Name="menuAddTuicServer" Header="{x:Static resx:ResUI.menuAddTuicServer}" />
-                        <MenuItem x:Name="menuAddAnytlsServer" Header="{x:Static resx:ResUI.menuAddAnytlsServer}" />
-                        <MenuItem x:Name="menuAddNaiveServer" Header="{x:Static resx:ResUI.menuAddNaiveServer}" />
-                    </MenuItem>
+        <Grid RowDefinitions="36,*">
+            <Border
+                Background="#0E1620"
+                BorderBrush="#182432"
+                BorderThickness="0,0,0,1">
+                <Grid Margin="14,0" ColumnDefinitions="Auto,*,Auto">
+                    <StackPanel
+                        Orientation="Horizontal"
+                        Spacing="8"
+                        VerticalAlignment="Center">
+                        <Border
+                            Width="20"
+                            Height="20"
+                            Background="#153452"
+                            BorderBrush="#2A557E"
+                            BorderThickness="1"
+                            CornerRadius="10">
+                            <Image
+                                Width="14"
+                                Height="14"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Source="/Assets/NotifyIcon1.ico" />
+                        </Border>
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{StaticResource TextPrimaryBrush}"
+                            FontSize="15"
+                            FontWeight="SemiBold"
+                            Text="Animus-Link" />
+                    </StackPanel>
 
-                    <MenuItem Header="{x:Static resx:ResUI.menuSubscription}">
-                        <MenuItem x:Name="menuSubSetting" Header="{x:Static resx:ResUI.menuSubSetting}" />
-                        <Separator />
-                        <MenuItem x:Name="menuSubUpdate" Header="{x:Static resx:ResUI.menuSubUpdate}" />
-                        <MenuItem x:Name="menuSubUpdateViaProxy" Header="{x:Static resx:ResUI.menuSubUpdateViaProxy}" />
-                        <MenuItem x:Name="menuSubGroupUpdate" Header="{x:Static resx:ResUI.menuSubGroupUpdate}" />
-                        <MenuItem x:Name="menuSubGroupUpdateViaProxy" Header="{x:Static resx:ResUI.menuSubGroupUpdateViaProxy}" />
-                    </MenuItem>
+                    <StackPanel
+                        Grid.Column="2"
+                        Orientation="Horizontal"
+                        Spacing="8"
+                        VerticalAlignment="Center">
+                        <Button
+                            x:Name="btnHeaderUpdate"
+                            Classes="ActionGhost"
+                            Content="-" />
+                        <Button
+                            x:Name="btnHeaderSettings"
+                            Classes="ActionGhost"
+                            Content="O" />
+                        <Button
+                            x:Name="btnHeaderClose"
+                            Classes="ActionGhost"
+                            Content="X" />
+                    </StackPanel>
+                </Grid>
+            </Border>
 
-                    <MenuItem Header="{x:Static resx:ResUI.menuSetting}">
-                        <MenuItem x:Name="menuOptionSetting" Header="{x:Static resx:ResUI.menuOptionSetting}" />
-                        <MenuItem x:Name="menuRoutingSetting" Header="{x:Static resx:ResUI.menuRoutingSetting}" />
-                        <MenuItem x:Name="menuDNSSetting" Header="{x:Static resx:ResUI.menuDNSSetting}" />
-                        <MenuItem x:Name="menuFullConfigTemplate" Header="{x:Static resx:ResUI.menuFullConfigTemplate}" />
-                        <MenuItem
-                            x:Name="menuGlobalHotkeySetting"
-                            Header="{x:Static resx:ResUI.menuGlobalHotkeySetting}"
-                            IsVisible="{Binding BlIsWindows}" />
-                        <Separator />
-                        <MenuItem
-                            x:Name="menuRebootAsAdmin"
-                            Header="{x:Static resx:ResUI.menuRebootAsAdmin}"
-                            IsVisible="{Binding BlIsWindows}" />
-                        <MenuItem
-                            x:Name="menuSettingsSetUWP"
-                            Header="{x:Static resx:ResUI.TbSettingsSetUWP}"
-                            IsVisible="{Binding BlIsWindows}" />
-                        <MenuItem x:Name="menuClearServerStatistics" Header="{x:Static resx:ResUI.menuClearServerStatistics}" />
-                        <Separator />
-                        <MenuItem Header="{x:Static resx:ResUI.menuRegionalPresets}">
+            <Grid
+                Grid.Row="1"
+                Margin="14"
+                ColumnDefinitions="238,*"
+                ColumnSpacing="14">
+                <Border
+                    Background="{StaticResource SidebarBackgroundBrush}"
+                    BorderBrush="#182432"
+                    BorderThickness="1"
+                    CornerRadius="18"
+                    Padding="14">
+                    <Grid RowDefinitions="Auto,Auto,*,Auto" RowSpacing="14">
+                        <StackPanel Spacing="14">
+                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                <Border
+                                    Width="56"
+                                    Height="56"
+                                    Background="#101D29"
+                                    BorderBrush="#213346"
+                                    BorderThickness="1"
+                                    CornerRadius="28">
+                                    <Image
+                                        Width="42"
+                                        Height="42"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Source="/v2rayN.png" />
+                                </Border>
+                                <StackPanel VerticalAlignment="Center" Spacing="2">
+                                    <TextBlock Classes="SidebarBrand" Text="Animus-Link" />
+                                </StackPanel>
+                            </StackPanel>
+
+                            <Border Height="1" Background="#182432" />
+                        </StackPanel>
+
+                        <StackPanel
+                            Grid.Row="1"
+                            Spacing="8">
+                            <Button Classes="NavButton active">
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <TextBlock Classes="SidebarIcon" Text="H" />
+                                    <TextBlock Classes="SidebarNavText" Text="Главная" />
+                                </StackPanel>
+                            </Button>
+                            <Button Classes="NavButton">
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <TextBlock Classes="SidebarIcon" Text="S" />
+                                    <TextBlock Classes="SidebarNavText" Text="Сервера" />
+                                </StackPanel>
+                            </Button>
+                            <Button Classes="NavButton">
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <TextBlock Classes="SidebarIcon" Text="U" />
+                                    <TextBlock Classes="SidebarNavText" Text="Подписки" />
+                                </StackPanel>
+                            </Button>
+                            <Button Classes="NavButton">
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <TextBlock Classes="SidebarIcon" Text="R" />
+                                    <TextBlock Classes="SidebarNavText" Text="Маршрутизация" />
+                                </StackPanel>
+                            </Button>
+                            <Button Classes="NavButton">
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <TextBlock Classes="SidebarIcon" Text="G" />
+                                    <TextBlock Classes="SidebarNavText" Text="Настройки" />
+                                </StackPanel>
+                            </Button>
+                            <Button Classes="NavButton">
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <TextBlock Classes="SidebarIcon" Text="L" />
+                                    <TextBlock Classes="SidebarNavText" Text="Журнал" />
+                                </StackPanel>
+                            </Button>
+                            <Button Classes="NavButton">
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <TextBlock Classes="SidebarIcon" Text="I" />
+                                    <TextBlock Classes="SidebarNavText" Text="О программе" />
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+
+                        <Border
+                            Grid.Row="3"
+                            Classes="WindowPanel"
+                            Padding="14">
+                            <StackPanel Spacing="10">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <Ellipse
+                                        Width="16"
+                                        Height="16"
+                                        VerticalAlignment="Center"
+                                        Fill="{StaticResource SuccessBrush}" />
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        Foreground="{StaticResource SuccessBrush}"
+                                        FontSize="14"
+                                        FontWeight="SemiBold"
+                                        Text="Подключено" />
+                                </StackPanel>
+                                <TextBlock Classes="LabelText" Text="Тип: VLESS" />
+                                <TextBlock Classes="LabelText" Text="Сервер: server1.example.com" />
+                                <TextBlock Classes="LabelText" Text="Пинг: 48 ms" />
+                                <TextBlock Classes="LabelText" Text="Трафик: 8.32 MB / 12.45 MB" />
+                                <Button
+                                    x:Name="btnSidebarReload"
+                                    Classes="ActionPrimary"
+                                    HorizontalAlignment="Stretch"
+                                    Content="Отключить" />
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Grid
+                    Grid.Column="1"
+                    RowDefinitions="338,*,Auto"
+                    RowSpacing="14">
+                    <Border
+                        Grid.Row="0"
+                        Classes="WindowPanel"
+                        Padding="22">
+                        <Grid ColumnDefinitions="420,*" ColumnSpacing="22">
+                            <Grid ColumnDefinitions="180,*" ColumnSpacing="20">
+                                <Grid
+                                    Width="170"
+                                    Height="170"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+                                    <Ellipse
+                                        Margin="12"
+                                        Stroke="#244B2E"
+                                        StrokeThickness="10" />
+                                    <Ellipse
+                                        Margin="12"
+                                        Stroke="{StaticResource SuccessBrush}"
+                                        StrokeThickness="10" />
+                                    <Path
+                                        Data="M48,88 L73,113 L123,63"
+                                        Stroke="{StaticResource SuccessBrush}"
+                                        StrokeLineCap="Round"
+                                        StrokeThickness="10" />
+                                </Grid>
+
+                                <StackPanel
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    Spacing="8">
+                                    <TextBlock
+                                        Foreground="{StaticResource SuccessBrush}"
+                                        FontSize="21"
+                                        FontWeight="SemiBold"
+                                        Text="Подключено" />
+                                    <Grid
+                                        ColumnDefinitions="Auto,*"
+                                        ColumnSpacing="18"
+                                        RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto">
+                                        <TextBlock Classes="LabelText" Text="Сервер" />
+                                        <TextBlock Grid.Column="1" Classes="ValueText" Text="server1.example.com" />
+                                        <TextBlock Grid.Row="1" Classes="LabelText" Text="Протокол" />
+                                        <TextBlock Grid.Row="1" Grid.Column="1" Classes="ValueText" Text="VLESS" />
+                                        <TextBlock Grid.Row="2" Classes="LabelText" Text="Пинг" />
+                                        <TextBlock Grid.Row="2" Grid.Column="1" Classes="ValueText" Text="48 ms" />
+                                        <TextBlock Grid.Row="3" Classes="LabelText" Text="Входящий трафик" />
+                                        <TextBlock Grid.Row="3" Grid.Column="1" Classes="ValueText" Text="12.45 MB" />
+                                        <TextBlock Grid.Row="4" Classes="LabelText" Text="Исходящий трафик" />
+                                        <TextBlock Grid.Row="4" Grid.Column="1" Classes="ValueText" Text="8.32 MB" />
+                                        <TextBlock Grid.Row="5" Classes="LabelText" Text="Время подключения" />
+                                        <TextBlock Grid.Row="5" Grid.Column="1" Classes="ValueText" Text="00:12:34" />
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
+
+                            <Border
+                                Grid.Column="1"
+                                Background="{StaticResource PanelBackgroundAltBrush}"
+                                BorderBrush="{StaticResource PanelBorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="14"
+                                Padding="18">
+                                <Grid RowDefinitions="Auto,*,Auto" RowSpacing="16">
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <TextBlock Classes="CardTitle" Text="Трафик (скорость)" />
+                                        <StackPanel
+                                            Grid.Column="1"
+                                            Orientation="Horizontal"
+                                            Spacing="18">
+                                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                                <Border Width="14" Height="2" Background="#2F7DFF" />
+                                                <TextBlock Classes="LabelText" Text="Входящий" />
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                                <Border Width="14" Height="2" Background="{StaticResource SuccessBrush}" />
+                                                <TextBlock Classes="LabelText" Text="Исходящий" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Grid>
+
+                                    <Canvas Grid.Row="1" Height="210">
+                                        <Line StartPoint="48,12" EndPoint="698,12" Stroke="#202C3B" StrokeThickness="1" />
+                                        <Line StartPoint="48,54" EndPoint="698,54" Stroke="#202C3B" StrokeThickness="1" />
+                                        <Line StartPoint="48,96" EndPoint="698,96" Stroke="#202C3B" StrokeThickness="1" />
+                                        <Line StartPoint="48,138" EndPoint="698,138" Stroke="#202C3B" StrokeThickness="1" />
+                                        <Line StartPoint="48,180" EndPoint="698,180" Stroke="#202C3B" StrokeThickness="1" />
+
+                                        <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="12" Canvas.Left="0" Canvas.Top="0" Text="1.0 MB/s" />
+                                        <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="12" Canvas.Left="0" Canvas.Top="42" Text="800 KB/s" />
+                                        <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="12" Canvas.Left="0" Canvas.Top="84" Text="600 KB/s" />
+                                        <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="12" Canvas.Left="0" Canvas.Top="126" Text="400 KB/s" />
+                                        <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="12" Canvas.Left="0" Canvas.Top="168" Text="200 KB/s" />
+                                        <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="12" Canvas.Left="40" Canvas.Top="194" Text="0" />
+
+                                        <Path
+                                            Data="M60,150 C110,95 165,95 215,145 C265,195 315,52 365,132 C415,212 470,162 520,72 C570,-8 625,108 680,160"
+                                            Stroke="#2F7DFF"
+                                            StrokeLineCap="Round"
+                                            StrokeThickness="3" />
+                                        <Path
+                                            Data="M60,182 C110,135 165,152 215,184 C265,214 315,128 365,180 C415,228 470,190 520,112 C570,62 625,160 680,188"
+                                            Stroke="{StaticResource SuccessBrush}"
+                                            StrokeLineCap="Round"
+                                            StrokeThickness="3" />
+                                    </Canvas>
+
+                                    <Grid Grid.Row="2" ColumnDefinitions="*,Auto,Auto" ColumnSpacing="10">
+                                        <ContentControl
+                                            x:Name="conTheme"
+                                            VerticalAlignment="Center" />
+                                        <TextBlock
+                                            Grid.Column="1"
+                                            VerticalAlignment="Center"
+                                            Classes="LabelText"
+                                            Text="Обновлено: только что" />
+                                        <Button
+                                            x:Name="btnHeaderReloadLarge"
+                                            Grid.Column="2"
+                                            Classes="ActionGhost"
+                                            Content="R" />
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <ScrollViewer
+                        Grid.Row="1"
+                        VerticalScrollBarVisibility="Auto">
+                        <StackPanel Spacing="14">
+                            <Border Classes="WindowPanel" Padding="18">
+                                <Grid RowDefinitions="Auto,*" RowSpacing="14">
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <TextBlock Classes="PageTitle" Text="Сервера" />
+                                        <StackPanel
+                                            Grid.Column="1"
+                                            Orientation="Horizontal"
+                                            Spacing="10">
+                                            <Button
+                                                x:Name="btnPasteServer"
+                                                Classes="ActionPrimary"
+                                                Content="+ Добавить сервер" />
+                                            <Button
+                                                x:Name="btnScanServerVisible"
+                                                Classes="ActionGhost"
+                                                Content="+" />
+                                            <Button
+                                                x:Name="btnAddCustomServerVisible"
+                                                Classes="ActionGhost"
+                                                Content="E" />
+                                            <Button
+                                                Classes="ActionGhost"
+                                                Content="..." />
+                                        </StackPanel>
+                                    </Grid>
+
+                                    <ContentControl
+                                        x:Name="profilesHost"
+                                        Grid.Row="1" />
+                                </Grid>
+                            </Border>
+
+                            <Grid ColumnDefinitions="360,*" ColumnSpacing="14">
+                                <Border Classes="WindowPanel" Padding="18">
+                                    <Grid RowDefinitions="Auto,*" RowSpacing="14">
+                                        <Grid ColumnDefinitions="*,Auto">
+                                            <TextBlock Classes="PageTitle" Text="Подключение" />
+                                            <Button
+                                                Classes="ActionGhost"
+                                                Content="." />
+                                        </Grid>
+                                        <ContentControl
+                                            x:Name="statusHost"
+                                            Grid.Row="1" />
+                                    </Grid>
+                                </Border>
+
+                                <Border
+                                    Grid.Column="1"
+                                    Classes="WindowPanel"
+                                    Padding="18">
+                                    <Grid RowDefinitions="Auto,*" RowSpacing="14">
+                                        <Grid ColumnDefinitions="*,Auto">
+                                            <TextBlock Classes="PageTitle" Text="Подписки" />
+                                            <StackPanel
+                                                Grid.Column="1"
+                                                Orientation="Horizontal"
+                                                Spacing="10">
+                                                <Button
+                                                    x:Name="btnSubUpdateMain"
+                                                    Classes="ActionGhost"
+                                                    Content="R" />
+                                                <Button
+                                                    x:Name="btnSubSettingMain"
+                                                    Classes="ActionPrimary"
+                                                    Content="+ Добавить подписку" />
+                                            </StackPanel>
+                                        </Grid>
+
+                                        <ContentControl
+                                            x:Name="msgHost"
+                                            Grid.Row="1" />
+                                    </Grid>
+                                </Border>
+                            </Grid>
+
+                            <Grid
+                                x:Name="clashSection"
+                                ColumnDefinitions="*,*"
+                                ColumnSpacing="14"
+                                IsVisible="False">
+                                <Border Classes="WindowPanel" Padding="18">
+                                    <Grid RowDefinitions="Auto,*" RowSpacing="14">
+                                        <TextBlock Classes="PageTitle" Text="{x:Static resx:ResUI.TbProxies}" />
+                                        <ContentControl
+                                            x:Name="proxiesHost"
+                                            Grid.Row="1" />
+                                    </Grid>
+                                </Border>
+
+                                <Border
+                                    Grid.Column="1"
+                                    Classes="WindowPanel"
+                                    Padding="18">
+                                    <Grid RowDefinitions="Auto,*" RowSpacing="14">
+                                        <TextBlock Classes="PageTitle" Text="{x:Static resx:ResUI.TbConnections}" />
+                                        <ContentControl
+                                            x:Name="connectionsHost"
+                                            Grid.Row="1" />
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <Menu IsVisible="False">
+                        <MenuItem Header="{x:Static resx:ResUI.menuServers}">
+                            <MenuItem
+                                x:Name="menuAddServerViaClipboard"
+                                Header="{x:Static resx:ResUI.menuAddServerViaClipboard}"
+                                InputGesture="Ctrl+V" />
+                            <MenuItem
+                                x:Name="menuAddServerViaScan"
+                                Header="{x:Static resx:ResUI.menuAddServerViaScan}"
+                                InputGesture="Ctrl+S" />
+                            <MenuItem x:Name="menuAddServerViaImage" Header="{x:Static resx:ResUI.menuAddServerViaImage}" />
+                            <MenuItem x:Name="menuAddCustomServer" Header="{x:Static resx:ResUI.menuAddCustomServer}" />
+                            <MenuItem x:Name="menuAddPolicyGroupServer" Header="{x:Static resx:ResUI.menuAddPolicyGroupServer}" />
+                            <MenuItem x:Name="menuAddProxyChainServer" Header="{x:Static resx:ResUI.menuAddProxyChainServer}" />
+                            <Separator />
+                            <MenuItem x:Name="menuAddVmessServer" Header="{x:Static resx:ResUI.menuAddVmessServer}" />
+                            <MenuItem x:Name="menuAddVlessServer" Header="{x:Static resx:ResUI.menuAddVlessServer}" />
+                            <MenuItem x:Name="menuAddShadowsocksServer" Header="{x:Static resx:ResUI.menuAddShadowsocksServer}" />
+                            <MenuItem x:Name="menuAddTrojanServer" Header="{x:Static resx:ResUI.menuAddTrojanServer}" />
+                            <MenuItem x:Name="menuAddHysteria2Server" Header="{x:Static resx:ResUI.menuAddHysteria2Server}" />
+                            <MenuItem x:Name="menuAddWireguardServer" Header="{x:Static resx:ResUI.menuAddWireguardServer}" />
+                            <MenuItem x:Name="menuAddSocksServer" Header="{x:Static resx:ResUI.menuAddSocksServer}" />
+                            <MenuItem x:Name="menuAddHttpServer" Header="{x:Static resx:ResUI.menuAddHttpServer}" />
+                            <Separator />
+                            <MenuItem x:Name="menuAddTuicServer" Header="{x:Static resx:ResUI.menuAddTuicServer}" />
+                            <MenuItem x:Name="menuAddAnytlsServer" Header="{x:Static resx:ResUI.menuAddAnytlsServer}" />
+                            <MenuItem x:Name="menuAddNaiveServer" Header="{x:Static resx:ResUI.menuAddNaiveServer}" />
+                        </MenuItem>
+
+                        <MenuItem Header="{x:Static resx:ResUI.menuSubscription}">
+                            <MenuItem x:Name="menuSubSetting" Header="{x:Static resx:ResUI.menuSubSetting}" />
+                            <Separator />
+                            <MenuItem x:Name="menuSubUpdate" Header="{x:Static resx:ResUI.menuSubUpdate}" />
+                            <MenuItem x:Name="menuSubUpdateViaProxy" Header="{x:Static resx:ResUI.menuSubUpdateViaProxy}" />
+                        </MenuItem>
+
+                        <MenuItem Header="{x:Static resx:ResUI.menuSetting}">
+                            <MenuItem x:Name="menuOptionSetting" Header="{x:Static resx:ResUI.menuOptionSetting}" />
+                            <MenuItem x:Name="menuRoutingSetting" Header="{x:Static resx:ResUI.menuRoutingSetting}" />
+                            <MenuItem x:Name="menuDNSSetting" Header="{x:Static resx:ResUI.menuDNSSetting}" />
+                            <MenuItem x:Name="menuFullConfigTemplate" Header="{x:Static resx:ResUI.menuFullConfigTemplate}" />
+                            <MenuItem
+                                x:Name="menuGlobalHotkeySetting"
+                                Header="{x:Static resx:ResUI.menuGlobalHotkeySetting}" />
+                            <Separator />
+                            <MenuItem
+                                x:Name="menuRebootAsAdmin"
+                                Header="{x:Static resx:ResUI.menuRebootAsAdmin}" />
+                            <MenuItem
+                                x:Name="menuSettingsSetUWP"
+                                Header="{x:Static resx:ResUI.TbSettingsSetUWP}" />
+                            <MenuItem x:Name="menuClearServerStatistics" Header="{x:Static resx:ResUI.menuClearServerStatistics}" />
+                            <Separator />
                             <MenuItem x:Name="menuRegionalPresetsDefault" Header="{x:Static resx:ResUI.menuRegionalPresetsDefault}" />
                             <MenuItem x:Name="menuRegionalPresetsRussia" Header="{x:Static resx:ResUI.menuRegionalPresetsRussia}" />
                             <MenuItem x:Name="menuRegionalPresetsIran" Header="{x:Static resx:ResUI.menuRegionalPresetsIran}" />
+                            <MenuItem x:Name="menuBackupAndRestore" Header="{x:Static resx:ResUI.menuBackupAndRestore}" />
+                            <MenuItem x:Name="menuOpenTheFileLocation" Header="{x:Static resx:ResUI.menuOpenTheFileLocation}" />
                         </MenuItem>
-                        <MenuItem x:Name="menuBackupAndRestore" Header="{x:Static resx:ResUI.menuBackupAndRestore}" />
-                        <MenuItem x:Name="menuOpenTheFileLocation" Header="{x:Static resx:ResUI.menuOpenTheFileLocation}" />
-                    </MenuItem>
 
-                    <MenuItem x:Name="menuHelp" Header="{x:Static resx:ResUI.menuHelp}">
-                        <MenuItem x:Name="menuCheckUpdate" Header="{x:Static resx:ResUI.menuCheckUpdate}" />
-                        <Separator />
-                    </MenuItem>
+                        <MenuItem x:Name="menuHelp" Header="{x:Static resx:ResUI.menuHelp}">
+                            <MenuItem x:Name="menuCheckUpdate" Header="{x:Static resx:ResUI.menuCheckUpdate}" />
+                            <Separator />
+                        </MenuItem>
 
-                    <MenuItem x:Name="menuReload" Header="{x:Static resx:ResUI.menuReload}" />
-
-                    <MenuItem x:Name="menuPromotion" Header="{x:Static resx:ResUI.menuPromotion}" />
-
-                    <MenuItem x:Name="menuClose" Header="{x:Static resx:ResUI.menuExit}" />
-                </Menu>
-            </DockPanel>
-
-            <view:StatusBarView DockPanel.Dock="Bottom" />
-
-            <Grid>
-                <Grid
-                    x:Name="gridMain"
-                    ColumnDefinitions="1*,10,1*"
-                    IsVisible="False">
-                    <ContentControl x:Name="tabProfiles" Grid.Column="0" />
-                    <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" />
-                    <TabControl
-                        x:Name="tabMain"
-                        Grid.Column="2"
-                        HorizontalContentAlignment="Left">
-                        <TabItem x:Name="tabMsgView" Header="{x:Static resx:ResUI.MsgInformationTitle}" />
-                        <TabItem x:Name="tabClashProxies" Header="{x:Static resx:ResUI.TbProxies}" />
-                        <TabItem x:Name="tabClashConnections" Header="{x:Static resx:ResUI.TbConnections}" />
-                    </TabControl>
-                </Grid>
-                <Grid
-                    x:Name="gridMain1"
-                    IsVisible="False"
-                    RowDefinitions="1*,10,1*">
-                    <ContentControl x:Name="tabProfiles1" Grid.Row="0" />
-                    <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" />
-                    <TabControl
-                        x:Name="tabMain1"
-                        Grid.Row="2"
-                        TabStripPlacement="Left">
-                        <TabItem x:Name="tabMsgView1" Header="{x:Static resx:ResUI.MsgInformationTitle}" />
-                        <TabItem x:Name="tabClashProxies1" Header="{x:Static resx:ResUI.TbProxies}" />
-                        <TabItem x:Name="tabClashConnections1" Header="{x:Static resx:ResUI.TbConnections}" />
-                    </TabControl>
-                </Grid>
-                <Grid x:Name="gridMain2" IsVisible="False">
-                    <TabControl x:Name="tabMain2" TabStripPlacement="Left">
-                        <TabItem x:Name="tabProfiles2" Header="{x:Static resx:ResUI.menuServers}" />
-                        <TabItem x:Name="tabMsgView2" Header="{x:Static resx:ResUI.MsgInformationTitle}" />
-                        <TabItem x:Name="tabClashProxies2" Header="{x:Static resx:ResUI.TbProxies}" />
-                        <TabItem x:Name="tabClashConnections2" Header="{x:Static resx:ResUI.TbConnections}" />
-                    </TabControl>
+                        <MenuItem x:Name="menuReload" Header="{x:Static resx:ResUI.menuReload}" />
+                        <MenuItem x:Name="menuPromotion" Header="{x:Static resx:ResUI.menuPromotion}" />
+                        <MenuItem x:Name="menuClose" Header="{x:Static resx:ResUI.menuExit}" />
+                    </Menu>
                 </Grid>
             </Grid>
-        </DockPanel>
+        </Grid>
     </dialogHost:DialogHost>
 </Window>
